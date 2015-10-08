@@ -19,7 +19,7 @@ TEMPLATE = app
 DESTDIR = bin
 VERSION = 0.0.0.0
 
-INCLUDEPATH += /home/alexey/workprjs/ASN1-test/src
+INCLUDEPATH += ../ASN1/include
 
 SOURCES += src/ASN1-test.cpp
 
@@ -27,7 +27,7 @@ HEADERS += src/ASN1-test.h
 
 CONFIG (debug, debug|release){
     OBJECTS_DIR = build/debug
-	LIBS += -L/home/alexey/workprjs/ASN1/bin -lasn1 -lcppunit -lgcov
+	LIBS += -L/home/alexey/workprjs/ASN1/bin -lasn1d -lcppunit -lgcov
 	DEFINES += DEBUG
 	TARGET = asn1-testd	
 } else {

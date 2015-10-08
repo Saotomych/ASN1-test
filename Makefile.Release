@@ -14,7 +14,7 @@ CXX           = g++
 DEFINES       = -DQT_NO_DEBUG -DQT_NETWORK_LIB -DQT_CORE_LIB
 CFLAGS        = -m64 -pipe -O2 -Wall -W -D_REENTRANT -fPIE $(DEFINES)
 CXXFLAGS      = -m64 -pipe -O2 -std=c++0x -Wall -W -D_REENTRANT -fPIE $(DEFINES)
-INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -Isrc -I/usr/include/qt5 -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -Irelease
+INCPATH       = -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++-64 -I. -I../ASN1/include -I/usr/include/qt5 -I/usr/include/qt5/QtNetwork -I/usr/include/qt5/QtCore -Irelease
 LINK          = g++
 LFLAGS        = -m64 -Wl,-O1
 LIBS          = $(SUBLIBS) -L/home/alexey/workprjs/ASN1/bin -lasn1 -lcppunit -lgcov -lQt5Network -L/usr/lib/x86_64-linux-gnu -lQt5Core -lpthread 
@@ -243,7 +243,52 @@ build/release/ASN1-test.o: src/ASN1-test.cpp src/ASN1-test.h \
 		/usr/include/qt5/QtCore/qcontainerfwd.h \
 		/usr/include/qt5/QtCore/qisenum.h \
 		/usr/include/qt5/QtCore/qobject_impl.h \
-		/usr/include/qt5/QtCore/qeventloop.h
+		/usr/include/qt5/QtCore/qeventloop.h \
+		../ASN1/include/berByteArrayOutputStream.h \
+		../ASN1/include/asn1_global.h \
+		/usr/include/qt5/QtCore/QObject \
+		/usr/include/qt5/QtNetwork/QHostAddress \
+		/usr/include/qt5/QtNetwork/qhostaddress.h \
+		/usr/include/qt5/QtCore/qpair.h \
+		/usr/include/qt5/QtNetwork/qabstractsocket.h \
+		/usr/include/qt5/QtCore/qiodevice.h \
+		/usr/include/qt5/QtCore/qdebug.h \
+		/usr/include/qt5/QtCore/qhash.h \
+		/usr/include/qt5/QtCore/qmap.h \
+		/usr/include/qt5/QtCore/qtextstream.h \
+		/usr/include/qt5/QtCore/qlocale.h \
+		/usr/include/qt5/QtCore/qvariant.h \
+		/usr/include/qt5/QtCore/qstringlist.h \
+		/usr/include/qt5/QtCore/qdatastream.h \
+		/usr/include/qt5/QtCore/qregexp.h \
+		/usr/include/qt5/QtCore/qstringmatcher.h \
+		/usr/include/qt5/QtCore/qshareddata.h \
+		/usr/include/qt5/QtCore/qvector.h \
+		/usr/include/qt5/QtCore/qpoint.h \
+		/usr/include/qt5/QtCore/qset.h \
+		/usr/include/qt5/QtCore/qcontiguouscache.h \
+		/usr/include/qt5/QtCore/QMutex \
+		/usr/include/qt5/QtCore/QDebug \
+		/usr/include/qt5/QtCore/QLinkedList \
+		/usr/include/qt5/QtCore/qlinkedlist.h \
+		/usr/include/qt5/QtCore/QVector \
+		/usr/include/qt5/QtCore/QDataStream \
+		/usr/include/qt5/QtCore/QScopedPointer \
+		/usr/include/qt5/QtCore/QSharedPointer \
+		/usr/include/qt5/QtCore/qsharedpointer.h \
+		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
+		/usr/include/qt5/QtCore/QByteArray \
+		/usr/include/qt5/QtCore/QBitArray \
+		/usr/include/qt5/QtCore/qbitarray.h \
+		/usr/include/qt5/QtCore/qmath.h \
+		../ASN1/include/berIdentifier.h \
+		../ASN1/include/berLength.h \
+		../ASN1/include/berOctetString.h \
+		../ASN1/include/berBase.h \
+		../ASN1/include/berGeneralizedTime.h \
+		../ASN1/include/berInteger.h \
+		../ASN1/include/berObjectIdentifier.h \
+		../ASN1/include/berReal.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/ASN1-test.o src/ASN1-test.cpp
 
 ####### Install

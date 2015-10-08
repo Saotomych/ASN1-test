@@ -10,6 +10,14 @@
 #include <cppunit/XmlOutputterHook.h>
 #include <cppunit/XmlOutputter.h>
 
+#include "berByteArrayOutputStream.h"
+#include "berIdentifier.h"
+#include "berLength.h"
+#include "berOctetString.h"
+#include "berGeneralizedTime.h"
+#include "berInteger.h"
+#include "berObjectIdentifier.h"
+#include "berReal.h"
 
 class ASN1berGeneralizedTimeTest: public CppUnit::TestCase
 {
