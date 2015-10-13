@@ -19,6 +19,8 @@
 #include "berObjectIdentifier.h"
 #include "berReal.h"
 
+#include <string>
+
 class CIntegerUnivPrim: public CBerInteger
 {
 protected:
@@ -28,6 +30,8 @@ public:
 	CIntegerUnivPrim(qint64 val);
 
 	virtual quint32 encode(CBerByteArrayOutputStream& berBAOStream, bool expl);
+
+	void testEncode(CBerByteArrayOutputStream& berStream, char* expecteddata, int expectedlen, bool expl);
 };
 
 class ASN1CBerByteArrayOutputStreamAutoResize: public CppUnit::TestCase

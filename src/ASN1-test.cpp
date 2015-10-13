@@ -2,6 +2,14 @@
 
 using namespace std;
 
+void checkTest(string message, QByteArray& expected, QByteArray& result)
+{
+	auto itdata = result.begin();
+	auto itexpdata =  expected.begin();
+	for (; itdata != result.end() && itexpdata != expected.end(); ++itdata, ++itexpdata)
+		CPPUNIT_ASSERT_EQUAL_MESSAGE(message, *itexpdata, *itdata);
+}
+
 CIntegerUnivPrim::CIntegerUnivPrim(qint64 val): CBerInteger(val)
 {
 	CBerIdentifier berID(CBerIdentifier::APPLICATION_CLASS, CBerIdentifier::PRIMITIVE, CBerIdentifier::INTEGER_TAG);
@@ -11,21 +19,23 @@ quint32 CIntegerUnivPrim::encode(CBerByteArrayOutputStream& berBAOStream, bool e
 {
 	quint32 codeLength = CBerInteger::encode(berBAOStream, expl);
 
-	if (expl)
-	{
-		codeLength += CBerLength::encodeLength(berBAOStream, codeLength);
-		codeLength += m_berID.encode(berBAOStream);
-	}
-
 	return codeLength;
 }
 
-void checkTest(string message, QByteArray& expected, QByteArray& result)
+void CIntegerUnivPrim::testEncode(CBerByteArrayOutputStream& berStream, char* expecteddata, int expectedlen, bool expl)
 {
-	auto itdata = result.begin();
-	auto itexpdata =  expected.begin();
-	for (; itdata != result.end() && itexpdata != expected.end(); ++itdata, ++itexpdata)
-		CPPUNIT_ASSERT_EQUAL_MESSAGE(message, *itexpdata, *itdata);
+	int length = encode(berStream, expl);
+
+	QString testStr1( QString("berInteger Test: encode length error (val = %1)").arg(m_Val) );
+	QString testStr2( QString("berInteger Test: encode data error (val = %1)").arg(m_Val) );
+
+	CPPUNIT_ASSERT_EQUAL_MESSAGE(testStr1.toStdString(), expectedlen, length);
+
+	QByteArray resByteArray = berStream.getByteArray();
+
+	QByteArray expectedByteArray( expecteddata, expectedlen );
+
+	checkTest(testStr2.toStdString(), expectedByteArray, resByteArray);
 }
 
 void ASN1CBerByteArrayOutputStreamAutoResize::runTest()
@@ -71,17 +81,69 @@ void ASN1berGeneralizedTimeTest::runTest()
 void ASN1berIntegerTest::runTest()
 {
 	CBerByteArrayOutputStream berStream(50);
-	CIntegerUnivPrim berInt(51);
-	int length = berInt.encode(berStream, false);
 
-	CPPUNIT_ASSERT_EQUAL_MESSAGE("berInteger Test: encode length error", 2, length);
+	// Test 51
+	{
+		CIntegerUnivPrim berInt(51);
+		char expecteddata[] = { 0x01, 0x33 };
+		berInt.testEncode(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+	}
 
-	QByteArray resByteArray = berStream.getByteArray();
+	// Test 256
+	{
+		CIntegerUnivPrim berInt(256);
+		char expecteddata[] = { 0x02, 0x01, 0x00 };
+		berInt.testEncode(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+	}
 
-	char expecteddata[] = { 0x01, 0x33 };
-	QByteArray expectedByteArray(expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]) );
+	// Test 0
+	{
+		CIntegerUnivPrim berInt(0);
+		char expecteddata[] = { 0x01, 0x00 };
+		berInt.testEncode(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+	}
 
-	checkTest("berInteger Test: encode data error", expectedByteArray, resByteArray);
+	// Test 127
+	{
+		CIntegerUnivPrim berInt(127);
+		char expecteddata[] = { 0x01, 0x7F };
+		berInt.testEncode(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+	}
+
+	// Test 128
+	{
+		CIntegerUnivPrim berInt(128);
+		quint8 expecteddata[] = { 0x02, 0x00, 0x80 };
+		berInt.testEncode(berStream, (char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+	}
+
+	// Test -128
+	{
+		CIntegerUnivPrim berInt(-128);
+		quint8 expecteddata[] = { 0x01, 0x80 };
+		berInt.testEncode(berStream, (char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+	}
+
+	// Test -129
+	{
+		CIntegerUnivPrim berInt(-129);
+		quint8 expecteddata[] = { 0x02, 0xFF, 0x7F };
+		berInt.testEncode(berStream, (char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+	}
+
+	// Test 51 true
+	{
+		CIntegerUnivPrim berInt(51);
+		char expecteddata[] = { 0x02, 0x01, 0x33 };
+		berInt.testEncode(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), true);
+	}
+
+	// Test 5555 true
+	{
+		CIntegerUnivPrim berInt(5555);
+		quint8 expecteddata[] = { 0x02, 0x02, 0x15, 0xB3 };
+		berInt.testEncode(berStream, (char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), true);
+	}
 }
 
 void ASN1berObjectIdentifierTest::runTest()
