@@ -19,6 +19,24 @@
 #include "berObjectIdentifier.h"
 #include "berReal.h"
 
+class CIntegerUnivPrim: public CBerInteger
+{
+protected:
+	CBerIdentifier m_berID;
+
+public:
+	CIntegerUnivPrim(qint64 val);
+
+	virtual quint32 encode(CBerByteArrayOutputStream& berBAOStream, bool expl);
+};
+
+class ASN1CBerByteArrayOutputStreamAutoResize: public CppUnit::TestCase
+{
+public:
+	ASN1CBerByteArrayOutputStreamAutoResize(const std::string str): TestCase(str) {}
+	virtual void runTest();
+};
+
 class ASN1berGeneralizedTimeTest: public CppUnit::TestCase
 {
 public:
