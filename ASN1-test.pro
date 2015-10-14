@@ -21,9 +21,25 @@ VERSION = 0.0.0.0
 
 INCLUDEPATH += ../ASN1/include
 
-SOURCES += src/ASN1-test.cpp
+SOURCES += src/berGeneralizedTimeTest.cpp \
+	src/berIdentifierTest.cpp \
+	src/berIntegerTest.cpp \
+	src/berLengthTest.cpp \
+	src/berObjectIdentifierTest.cpp \
+	src/berOctetStringTest.cpp \
+	src/berOutputStreamAutoResizeTest.cpp \
+	src/berRealTest.cpp \
+	src/ASN1-test.cpp
 
-HEADERS += src/ASN1-test.h
+HEADERS += src/berGeneralizedTimeTest.h \
+	src/berIdentifierTest.h \
+	src/berIntegerTest.h \
+	src/berLengthTest.h \
+	src/berObjectIdentifierTest.h \
+	src/berOctetStringTest.h \
+	src/berOutputStreamAutoResizeTest.h \
+	src/berRealTest.h \
+	src/ASN1-test.h
 
 CONFIG (debug, debug|release){
     OBJECTS_DIR = build/debug
