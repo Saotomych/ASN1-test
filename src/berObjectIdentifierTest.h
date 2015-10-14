@@ -10,8 +10,24 @@
 
 #include "ASN1-test.h"
 
+class TestBerObjectIdentifier: public CBerObjectIdentifier
+{
+public:
+	TestBerObjectIdentifier();
+	TestBerObjectIdentifier(QVector<qint32>& testOID);
+
+	void encodeTest(QByteArray& testData);
+	void decodeTest(QVector<qint32>& testOID, QByteArray& testData);
+};
+
 class ASN1berObjectIdentifierTest: public CppUnit::TestCase
 {
+
+	QByteArray getDataForTest1();
+	QByteArray getDataForTest2();
+	QVector<qint32> getDataForObjIdTest1();
+	QVector<qint32> getDataForObjIdTest2();
+
 public:
 	ASN1berObjectIdentifierTest(const std::string str): TestCase(str) {}
 	virtual void runTest();
