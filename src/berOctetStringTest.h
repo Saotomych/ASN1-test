@@ -10,6 +10,17 @@
 
 #include "ASN1-test.h"
 
+class TestBerOctetString: public CBerOctetString
+{
+public:
+
+	TestBerOctetString();
+	TestBerOctetString(QByteArray& octetString);
+
+	void encodeTest(char* expectedData, quint32 expectedLen);
+	void decodeTest(char* data, quint32 len, quint32 expectedLen);
+};
+
 class ASN1berOctetStringTest: public CppUnit::TestCase
 {
 public:
