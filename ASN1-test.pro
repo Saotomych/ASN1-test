@@ -44,12 +44,12 @@ HEADERS += src/berGeneralizedTimeTest.h \
 
 CONFIG (debug, debug|release){
     OBJECTS_DIR = build/debug
-	LIBS += -L/home/alexey/workprjs/ASN1/bin -lasn1d -lcppunit -lgcov
+	LIBS += -L/home/alexey/workprjs/ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1d -lcppunit -lgcov
 	DEFINES += DEBUG
 	TARGET = asn1-testd	
 } else {
     OBJECTS_DIR = build/release
-	LIBS += -L/home/alexey/workprjs/ASN1/bin -lasn1 -lcppunit -lgcov
+	LIBS += -L/home/alexey/workprjs/ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1 -lcppunit -lgcov
 	TARGET = asn1-test
 }
 
