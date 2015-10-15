@@ -10,6 +10,16 @@
 
 #include "ASN1-test.h"
 
+class TestBerReal: public CBerReal
+{
+public:
+	TestBerReal();
+	TestBerReal(double real);
+	TestBerReal(QByteArray& code);
+
+	void testEncodeDecodeOK(double expecteddata, bool expl);
+};
+
 class ASN1berRealTest: public CppUnit::TestCase
 {
 public:
