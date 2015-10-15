@@ -21,8 +21,7 @@ public:
 
 	virtual quint32 encode(CBerByteArrayOutputStream& berBAOStream, bool expl);
 
-	void testEncodeOK(CBerByteArrayOutputStream& berStream, char* expecteddata, int expectedlen, bool expl);
-	void testEncodeFAIL(CBerByteArrayOutputStream& berStream, char* expecteddata, int expectedlen, bool expl);
+	void testEncodeOK(char* expecteddata, int expectedlen, bool expl);
 	void testDecode(char* setData, int setLen, qint64 expectedVal, bool expl);
 };
 

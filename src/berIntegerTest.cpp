@@ -26,8 +26,10 @@ quint32 CIntegerUnivPrim::encode(CBerByteArrayOutputStream& berBAOStream, bool e
 	return codeLength;
 }
 
-void CIntegerUnivPrim::testEncodeOK(CBerByteArrayOutputStream& berStream, char* expecteddata, int expectedlen, bool expl)
+void CIntegerUnivPrim::testEncodeOK(char* expecteddata, int expectedlen, bool expl)
 {
+	CBerByteArrayOutputStream berStream(50);
+
 	int length = encode(berStream, expl);
 
 	QString testStr1( QString("berInteger Test encode: length error (val = %1)").arg(m_Val) );
@@ -54,69 +56,67 @@ void CIntegerUnivPrim::testDecode(char* setData, int setLen, qint64 expectedVal,
 
 void ASN1berIntegerTest::runTest()
 {
-	CBerByteArrayOutputStream berStream(50);
-
 	// Test 51
 	{
 		CIntegerUnivPrim berInt(51);
 		char expecteddata[] = { 0x01, 0x33 };
-		berInt.testEncodeOK(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+		berInt.testEncodeOK(expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
 	}
 
 	// Test 256
 	{
 		CIntegerUnivPrim berInt(256);
 		char expecteddata[] = { 0x02, 0x01, 0x00 };
-		berInt.testEncodeOK(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+		berInt.testEncodeOK(expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
 	}
 
 	// Test 0
 	{
 		CIntegerUnivPrim berInt(0);
 		char expecteddata[] = { 0x01, 0x00 };
-		berInt.testEncodeOK(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+		berInt.testEncodeOK(expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
 	}
 
 	// Test 127
 	{
 		CIntegerUnivPrim berInt(127);
 		char expecteddata[] = { 0x01, 0x7F };
-		berInt.testEncodeOK(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+		berInt.testEncodeOK(expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
 	}
 
 	// Test 128
 	{
 		CIntegerUnivPrim berInt(128);
 		quint8 expecteddata[] = { 0x02, 0x00, 0x80 };
-		berInt.testEncodeOK(berStream, (char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+		berInt.testEncodeOK((char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
 	}
 
 	// Test -128
 	{
 		CIntegerUnivPrim berInt(-128);
 		quint8 expecteddata[] = { 0x01, 0x80 };
-		berInt.testEncodeOK(berStream, (char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+		berInt.testEncodeOK((char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
 	}
 
 	// Test -129
 	{
 		CIntegerUnivPrim berInt(-129);
 		quint8 expecteddata[] = { 0x02, 0xFF, 0x7F };
-		berInt.testEncodeOK(berStream, (char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
+		berInt.testEncodeOK((char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), false);
 	}
 
 	// Test 51 true
 	{
 		CIntegerUnivPrim berInt(51);
 		char expecteddata[] = { 0x02, 0x01, 0x33 };
-		berInt.testEncodeOK(berStream, expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), true);
+		berInt.testEncodeOK(expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), true);
 	}
 
 	// Test 5555 true
 	{
 		CIntegerUnivPrim berInt(5555);
 		quint8 expecteddata[] = { 0x02, 0x02, 0x15, 0xB3 };
-		berInt.testEncodeOK(berStream, (char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), true);
+		berInt.testEncodeOK((char*) expecteddata, sizeof(expecteddata)/sizeof(expecteddata[0]), true);
 	}
 
 	// Test 51 decode
