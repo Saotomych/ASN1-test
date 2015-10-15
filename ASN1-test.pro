@@ -20,6 +20,7 @@ DESTDIR = bin
 VERSION = 0.0.0.0
 
 INCLUDEPATH += ../ASN1/include
+INCLUDEPATH += $(JENKINS_HOME)/jobs/ASN1/workspace/include
 
 SOURCES += src/berGeneralizedTimeTest.cpp \
 	src/berIdentifierTest.cpp \
