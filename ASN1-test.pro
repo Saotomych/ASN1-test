@@ -13,6 +13,7 @@ CONFIG   += console
 CONFIG 	 += c++11
 CONFIG   -= app_bundle
 CONFIG   += static
+CONFIG   += -fprofile-arcs -ftest-coverage
 
 TEMPLATE = app
 
