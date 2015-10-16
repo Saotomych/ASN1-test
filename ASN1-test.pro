@@ -61,10 +61,8 @@ unix {
 		
 		QMAKE_CXXFLAGS_RELEASE += -fPIC
 	}
-}
-else
-{
-    TARGET = $$qtLibraryTarget(asn1-test)
+}else{
+    TARGET = asn1-test-notunix
 }
 
 CONFIG += debug_and_release build_all
