@@ -13,7 +13,6 @@ CONFIG   += console
 CONFIG 	 += c++11
 CONFIG   -= app_bundle
 CONFIG   += static
-CONFIG   += -fprofile-arcs -ftest-coverage
 
 TEMPLATE = app
 
@@ -43,15 +42,29 @@ HEADERS += src/berGeneralizedTimeTest.h \
 	src/berRealTest.h \
 	src/ASN1-test.h
 
-CONFIG (debug, debug|release){
-    OBJECTS_DIR = build/debug
-	LIBS += -L/home/alexey/workprjs/ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1d -lcppunit -lgcov
-	DEFINES += DEBUG
-	TARGET = asn1-testd	
-} else {
-    OBJECTS_DIR = build/release
-	LIBS += -L/home/alexey/workprjs/ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1 -lcppunit -lgcov
-	TARGET = asn1-test
+unix {
+	CONFIG (debug, debug|release){
+	    OBJECTS_DIR = build/debug
+		LIBS += -L/home/alexey/workprjs/ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1d -lcppunit -lgcov
+		DEFINES += DEBUG
+		TARGET = asn1-testd	
+		
+		QMAKE_CXXFLAGS_RELEASE -= -O
+		QMAKE_CXXFLAGS_RELEASE -= -O1
+		QMAKE_CXXFLAGS_RELEASE -= -O2
+		QMAKE_CXXFLAGS += -O0 -fprofile-arcs -ftest-coverage -fPIC
+		
+	} else {
+	    OBJECTS_DIR = build/release
+		LIBS += -L/home/alexey/workprjs/ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1 -lcppunit
+		TARGET = asn1-test
+		
+		QMAKE_CXXFLAGS_RELEASE += -fPIC
+	}
+}
+else
+{
+    TARGET = $$qtLibraryTarget(asn1-test)
 }
 
 CONFIG += debug_and_release build_all
