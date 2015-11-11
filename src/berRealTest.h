@@ -10,9 +10,12 @@
 
 #include "ASN1-test.h"
 
-class TestBerReal: public CBerReal
+class TestBerReal
 {
 public:
+
+	CBerReal m_Value;
+
 	TestBerReal();
 	TestBerReal(double real);
 	TestBerReal(QByteArray& code);

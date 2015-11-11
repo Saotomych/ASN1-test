@@ -12,12 +12,12 @@ TestBerReal::TestBerReal()
 
 }
 
-TestBerReal::TestBerReal(double real): CBerReal(real)
+TestBerReal::TestBerReal(double real): m_Value(real)
 {
 
 }
 
-TestBerReal::TestBerReal(QByteArray& code): CBerReal(code)
+TestBerReal::TestBerReal(QByteArray& code): m_Value(code)
 {
 
 }
@@ -25,14 +25,16 @@ TestBerReal::TestBerReal(QByteArray& code): CBerReal(code)
 void TestBerReal::testEncodeDecodeOK(double expecteddata, bool expl)
 {
 	CBerByteArrayOutputStream berOStream(50);
-	encode(berOStream, expl);
+	m_Value.encode(berOStream, expl);
 
 	QByteArray encodeResult(berOStream.getByteArray());
 	CBerByteArrayInputStream berIStream(encodeResult);
-	decode(berIStream, expl);
+	m_Value.decode(berIStream, expl);
+
+	double Real = *m_Value.getValue();
 
 	QString str(QString("TestBerReal: encode/decode wrong. Expected value = %1").arg(expecteddata));
-	CPPUNIT_ASSERT_DOUBLES_EQUAL_MESSAGE(str.toStdString(), expecteddata, m_Real, 0.001);
+	CPPUNIT_ASSERT_DOUBLES_EQUAL_MESSAGE(str.toStdString(), expecteddata, Real, 0.001);
 }
 
 void ASN1berRealTest::runTest()

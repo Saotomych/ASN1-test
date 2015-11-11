@@ -9,21 +9,17 @@
 
 using namespace std;
 
-TestBerObjectIdentifier::TestBerObjectIdentifier()
+TestBerObjectIdentifier::TestBerObjectIdentifier(QVector<qint32>& testOID)
 {
-
-}
-
-TestBerObjectIdentifier::TestBerObjectIdentifier(QVector<qint32>& testOID): CBerObjectIdentifier(testOID)
-{
-
+	CBerObjectIdentifier obj(testOID);
+	m_Value = obj;
 }
 
 void TestBerObjectIdentifier::encodeTest(QByteArray& testData)
 {
 	CBerByteArrayOutputStream berOStream(50);
 
-	qint32 len = encode(berOStream, true);
+	qint32 len = m_Value.encode(berOStream, true);
 
 	CPPUNIT_ASSERT_EQUAL_MESSAGE("ASN1berObjectIdentifier encodeTest: length wrong", 7, len);
 
@@ -37,10 +33,12 @@ void TestBerObjectIdentifier::decodeTest(QVector<qint32>& testOID, QByteArray& t
 {
 	CBerByteArrayInputStream berInputStream(testData);
 
-	decode(berInputStream, true);
+	m_Value.decode(berInputStream, true);
 
-	for (qint32 i = 0; i < testOID.size() && i < m_ObjectIdentifierComponents.size(); ++i)
-		CPPUNIT_ASSERT_EQUAL_MESSAGE("ASN1berObjectIdentifier decodeTest: data wrong", testOID[i], m_ObjectIdentifierComponents[i]);
+	QVector<qint32> ObjectIdentifierComponents = *(m_Value.getValue());
+
+	for (qint32 i = 0; i < testOID.size() && i < ObjectIdentifierComponents.size(); ++i)
+		CPPUNIT_ASSERT_EQUAL_MESSAGE("ASN1berObjectIdentifier decodeTest: data wrong", testOID[i], ObjectIdentifierComponents[i]);
 
 }
 
@@ -92,18 +90,18 @@ void ASN1berObjectIdentifierTest::runTest()
 
 	// Test 2 - decode
 	{
-		TestBerObjectIdentifier berOID;
-
 		QVector<qint32> vecOIComponents = getDataForObjIdTest1();
+		TestBerObjectIdentifier berOID(vecOIComponents);
+
 		QByteArray testData = getDataForTest1();
 		berOID.decodeTest(vecOIComponents, testData);
 	}
 
 	// Test 3 - decode
 	{
-		TestBerObjectIdentifier berOID;
-
 		QVector<qint32> vecOIComponents = getDataForObjIdTest2();
+		TestBerObjectIdentifier berOID(vecOIComponents);
+
 		QByteArray testData = getDataForTest2();
 		berOID.decodeTest(vecOIComponents, testData);
 	}

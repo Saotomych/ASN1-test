@@ -15,16 +15,17 @@ TestBerOctetString::TestBerOctetString()
 
 }
 
-TestBerOctetString::TestBerOctetString(QByteArray& octetString): CBerOctetString(octetString)
+TestBerOctetString::TestBerOctetString(QByteArray& octetString)
 {
-
+	CBerOctetString obj(octetString);
+	m_Value = obj;
 }
 
 void TestBerOctetString::encodeTest(char* expectedData, quint32 expectedLen)
 {
 	CBerByteArrayOutputStream berStream(50);
 
-	quint32 length = encode(berStream, true);
+	quint32 length = m_Value.encode(berStream, true);
 
 	CPPUNIT_ASSERT_EQUAL_MESSAGE("berOctetStringTest Test: encode length error", expectedLen, length);
 
@@ -40,9 +41,11 @@ void TestBerOctetString::decodeTest(char* data, quint32 len, quint32 expectedLen
 	QByteArray byteArray(data, len);
 	CBerByteArrayInputStream berStream( byteArray );
 
-	decode(berStream, true);
+	m_Value.decode(berStream, true);
 
-	CPPUNIT_ASSERT_EQUAL_MESSAGE("berOctetStringTest Test: decode length error", (int) expectedLen, m_OctetString.size());
+	QByteArray OctetString = *(m_Value.getValue());
+
+	CPPUNIT_ASSERT_EQUAL_MESSAGE("berOctetStringTest Test: decode length error", (int) expectedLen, OctetString.size());
 }
 
 void ASN1berOctetStringTest::runTest()

@@ -7,21 +7,23 @@
 
 #include "berIntegerTest.h"
 
-CIntegerUnivPrim::CIntegerUnivPrim(): CBerInteger(0)
+CIntegerUnivPrim::CIntegerUnivPrim()
 {
+	m_Value = 0;
 	CBerIdentifier berID(CBerIdentifier::APPLICATION_CLASS, CBerIdentifier::PRIMITIVE, CBerIdentifier::INTEGER_TAG);
 	m_berID = berID;
 }
 
-CIntegerUnivPrim::CIntegerUnivPrim(qint64 val): CBerInteger(val)
+CIntegerUnivPrim::CIntegerUnivPrim(qint64 val)
 {
+	m_Value = val;
 	CBerIdentifier berID(CBerIdentifier::APPLICATION_CLASS, CBerIdentifier::PRIMITIVE, CBerIdentifier::INTEGER_TAG);
 	m_berID = berID;
 }
 
 quint32 CIntegerUnivPrim::encode(CBerByteArrayOutputStream& berBAOStream, bool expl)
 {
-	quint32 codeLength = CBerInteger::encode(berBAOStream, expl);
+	quint32 codeLength = m_Value.encode(berBAOStream, expl);
 
 	return codeLength;
 }
@@ -30,10 +32,9 @@ void CIntegerUnivPrim::testEncodeOK(char* expecteddata, int expectedlen, bool ex
 {
 	CBerByteArrayOutputStream berStream(50);
 
-	int length = encode(berStream, expl);
+	int length = m_Value.encode(berStream, expl);
 
-	QString testStr1( QString("berInteger Test encode: length error (val = %1)").arg(m_Val) );
-	QString testStr2( QString("berInteger Test encode: data error (val = %1)").arg(m_Val) );
+	QString testStr1( QString("berInteger Test encode: length error (val = %1)").arg(length) );
 
 	CPPUNIT_ASSERT_EQUAL_MESSAGE(testStr1.toStdString(), expectedlen, length);
 
@@ -41,6 +42,16 @@ void CIntegerUnivPrim::testEncodeOK(char* expecteddata, int expectedlen, bool ex
 
 	QByteArray expectedByteArray( expecteddata, expectedlen );
 
+	qint64 val = 0;
+	qint64 mux = 1;
+	for (int i = 1; i < resByteArray.size(); i++ )
+	{
+		qint64 v = resByteArray[i];
+		val += (mux * v);
+		mux *= 256;
+	}
+
+	QString testStr2( QString("berInteger Test encode: data error (val = %1)").arg(val) );
 	checkTestOK(testStr2.toStdString(), expectedByteArray, resByteArray);
 }
 
@@ -49,9 +60,10 @@ void CIntegerUnivPrim::testDecode(char* setData, int setLen, qint64 expectedVal,
 	QByteArray setByteArray( setData, setLen );
 	CBerByteArrayInputStream berInputStream(setByteArray);
 
-	decode(berInputStream, expl);
+	m_Value.decode(berInputStream, expl);
 
-	CPPUNIT_ASSERT_EQUAL_MESSAGE("berInteger Test decode: data error", expectedVal, m_Val);
+	qint64 resVal = *(m_Value.getValue());
+	CPPUNIT_ASSERT_EQUAL_MESSAGE("berInteger Test decode: data error", expectedVal, resVal);
 }
 
 void ASN1berIntegerTest::runTest()

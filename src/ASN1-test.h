@@ -21,6 +21,17 @@
 #include "berInteger.h"
 #include "berObjectIdentifier.h"
 #include "berReal.h"
+#include "compositeValue.h"
+
+#include "berGeneralizedTimeTest.h"
+#include "berIdentifierTest.h"
+#include "berIntegerTest.h"
+#include "berLengthTest.h"
+#include "berObjectIdentifierTest.h"
+#include "berOctetStringTest.h"
+#include "berOutputStreamAutoResizeTest.h"
+#include "berRealTest.h"
+#include "berCompositeTest.h"
 
 void checkTestOK(std::string message, QByteArray& expected, QByteArray& result);
 

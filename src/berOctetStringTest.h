@@ -10,9 +10,11 @@
 
 #include "ASN1-test.h"
 
-class TestBerOctetString: public CBerOctetString
+class TestBerOctetString
 {
 public:
+
+	CBerOctetString m_Value;
 
 	TestBerOctetString();
 	TestBerOctetString(QByteArray& octetString);

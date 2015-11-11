@@ -30,6 +30,7 @@ SOURCES += src/berGeneralizedTimeTest.cpp \
 	src/berOctetStringTest.cpp \
 	src/berOutputStreamAutoResizeTest.cpp \
 	src/berRealTest.cpp \
+	src/berCompositeTest.cpp \
 	src/ASN1-test.cpp
 
 HEADERS += src/berGeneralizedTimeTest.h \
@@ -40,12 +41,13 @@ HEADERS += src/berGeneralizedTimeTest.h \
 	src/berOctetStringTest.h \
 	src/berOutputStreamAutoResizeTest.h \
 	src/berRealTest.h \
+	src/berCompositeTest.h \
 	src/ASN1-test.h
 
 unix {
 	CONFIG (debug, debug|release){
 	    OBJECTS_DIR = build/debug
-		LIBS += -L/home/alexey/workprjs/ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1d -lcppunit -lgcov
+		LIBS += -L../ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1d -lcppunit -lgcov
 		DEFINES += DEBUG
 		TARGET = asn1-testd	
 		
@@ -56,11 +58,14 @@ unix {
 		
 	} else {
 	    OBJECTS_DIR = build/release
-		LIBS += -L/home/alexey/workprjs/ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1 -lcppunit
+		LIBS += -L../ASN1/bin -L$(JENKINS_HOME)/jobs/ASN1/workspace/bin -lasn1 -lcppunit
 		TARGET = asn1-test
 		
 		QMAKE_CXXFLAGS_RELEASE += -fPIC
 	}
+	
+	QMAKE_CXXFLAGS_WARN_ON += -Wno-unused-parameter
+	
 }else{
     TARGET = asn1-test-notunix
 }

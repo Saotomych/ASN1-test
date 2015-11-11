@@ -10,10 +10,11 @@
 
 #include "ASN1-test.h"
 
-class TestBerObjectIdentifier: public CBerObjectIdentifier
+class TestBerObjectIdentifier
 {
 public:
-	TestBerObjectIdentifier();
+	CBerObjectIdentifier m_Value;
+
 	TestBerObjectIdentifier(QVector<qint32>& testOID);
 
 	void encodeTest(QByteArray& testData);
