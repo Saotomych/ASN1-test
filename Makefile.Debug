@@ -91,9 +91,6 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
-		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
@@ -308,7 +305,9 @@ build/debug/berGeneralizedTimeTest.o: src/berGeneralizedTimeTest.cpp src/berGene
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -319,7 +318,15 @@ build/debug/berGeneralizedTimeTest.o: src/berGeneralizedTimeTest.cpp src/berGene
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berIdentifierTest.h \
+		src/berIntegerTest.h \
+		src/berLengthTest.h \
+		src/berObjectIdentifierTest.h \
+		src/berOctetStringTest.h \
+		src/berOutputStreamAutoResizeTest.h \
+		src/berRealTest.h \
+		src/berCompositeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berGeneralizedTimeTest.o src/berGeneralizedTimeTest.cpp
 
 build/debug/berIdentifierTest.o: src/berIdentifierTest.cpp src/berIdentifierTest.h \
@@ -428,7 +435,9 @@ build/debug/berIdentifierTest.o: src/berIdentifierTest.cpp src/berIdentifierTest
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -439,7 +448,15 @@ build/debug/berIdentifierTest.o: src/berIdentifierTest.cpp src/berIdentifierTest
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berGeneralizedTimeTest.h \
+		src/berIntegerTest.h \
+		src/berLengthTest.h \
+		src/berObjectIdentifierTest.h \
+		src/berOctetStringTest.h \
+		src/berOutputStreamAutoResizeTest.h \
+		src/berRealTest.h \
+		src/berCompositeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berIdentifierTest.o src/berIdentifierTest.cpp
 
 build/debug/berIntegerTest.o: src/berIntegerTest.cpp src/berIntegerTest.h \
@@ -548,7 +565,9 @@ build/debug/berIntegerTest.o: src/berIntegerTest.cpp src/berIntegerTest.h \
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -559,7 +578,15 @@ build/debug/berIntegerTest.o: src/berIntegerTest.cpp src/berIntegerTest.h \
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berGeneralizedTimeTest.h \
+		src/berIdentifierTest.h \
+		src/berLengthTest.h \
+		src/berObjectIdentifierTest.h \
+		src/berOctetStringTest.h \
+		src/berOutputStreamAutoResizeTest.h \
+		src/berRealTest.h \
+		src/berCompositeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berIntegerTest.o src/berIntegerTest.cpp
 
 build/debug/berLengthTest.o: src/berLengthTest.cpp src/berLengthTest.h \
@@ -668,7 +695,9 @@ build/debug/berLengthTest.o: src/berLengthTest.cpp src/berLengthTest.h \
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -679,7 +708,15 @@ build/debug/berLengthTest.o: src/berLengthTest.cpp src/berLengthTest.h \
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berGeneralizedTimeTest.h \
+		src/berIdentifierTest.h \
+		src/berIntegerTest.h \
+		src/berObjectIdentifierTest.h \
+		src/berOctetStringTest.h \
+		src/berOutputStreamAutoResizeTest.h \
+		src/berRealTest.h \
+		src/berCompositeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berLengthTest.o src/berLengthTest.cpp
 
 build/debug/berObjectIdentifierTest.o: src/berObjectIdentifierTest.cpp src/berObjectIdentifierTest.h \
@@ -788,7 +825,9 @@ build/debug/berObjectIdentifierTest.o: src/berObjectIdentifierTest.cpp src/berOb
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -799,7 +838,15 @@ build/debug/berObjectIdentifierTest.o: src/berObjectIdentifierTest.cpp src/berOb
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berGeneralizedTimeTest.h \
+		src/berIdentifierTest.h \
+		src/berIntegerTest.h \
+		src/berLengthTest.h \
+		src/berOctetStringTest.h \
+		src/berOutputStreamAutoResizeTest.h \
+		src/berRealTest.h \
+		src/berCompositeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berObjectIdentifierTest.o src/berObjectIdentifierTest.cpp
 
 build/debug/berOctetStringTest.o: src/berOctetStringTest.cpp src/berOctetStringTest.h \
@@ -908,7 +955,9 @@ build/debug/berOctetStringTest.o: src/berOctetStringTest.cpp src/berOctetStringT
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -919,7 +968,15 @@ build/debug/berOctetStringTest.o: src/berOctetStringTest.cpp src/berOctetStringT
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berGeneralizedTimeTest.h \
+		src/berIdentifierTest.h \
+		src/berIntegerTest.h \
+		src/berLengthTest.h \
+		src/berObjectIdentifierTest.h \
+		src/berOutputStreamAutoResizeTest.h \
+		src/berRealTest.h \
+		src/berCompositeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berOctetStringTest.o src/berOctetStringTest.cpp
 
 build/debug/berOutputStreamAutoResizeTest.o: src/berOutputStreamAutoResizeTest.cpp src/berOutputStreamAutoResizeTest.h \
@@ -1028,7 +1085,9 @@ build/debug/berOutputStreamAutoResizeTest.o: src/berOutputStreamAutoResizeTest.c
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -1039,7 +1098,15 @@ build/debug/berOutputStreamAutoResizeTest.o: src/berOutputStreamAutoResizeTest.c
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berGeneralizedTimeTest.h \
+		src/berIdentifierTest.h \
+		src/berIntegerTest.h \
+		src/berLengthTest.h \
+		src/berObjectIdentifierTest.h \
+		src/berOctetStringTest.h \
+		src/berRealTest.h \
+		src/berCompositeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berOutputStreamAutoResizeTest.o src/berOutputStreamAutoResizeTest.cpp
 
 build/debug/berRealTest.o: src/berRealTest.cpp src/berRealTest.h \
@@ -1148,7 +1215,9 @@ build/debug/berRealTest.o: src/berRealTest.cpp src/berRealTest.h \
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -1159,7 +1228,15 @@ build/debug/berRealTest.o: src/berRealTest.cpp src/berRealTest.h \
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berGeneralizedTimeTest.h \
+		src/berIdentifierTest.h \
+		src/berIntegerTest.h \
+		src/berLengthTest.h \
+		src/berObjectIdentifierTest.h \
+		src/berOctetStringTest.h \
+		src/berOutputStreamAutoResizeTest.h \
+		src/berCompositeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berRealTest.o src/berRealTest.cpp
 
 build/debug/berCompositeTest.o: src/berCompositeTest.cpp src/berCompositeTest.h \
@@ -1268,7 +1345,9 @@ build/debug/berCompositeTest.o: src/berCompositeTest.cpp src/berCompositeTest.h 
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
@@ -1279,7 +1358,15 @@ build/debug/berCompositeTest.o: src/berCompositeTest.cpp src/berCompositeTest.h 
 		../ASN1/include/compositeValue.h \
 		../ASN1/include/berBitString.h \
 		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h
+		../ASN1/include/berVisibleString.h \
+		src/berGeneralizedTimeTest.h \
+		src/berIdentifierTest.h \
+		src/berIntegerTest.h \
+		src/berLengthTest.h \
+		src/berObjectIdentifierTest.h \
+		src/berOctetStringTest.h \
+		src/berOutputStreamAutoResizeTest.h \
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/debug/berCompositeTest.o src/berCompositeTest.cpp
 
 build/debug/ASN1-test.o: src/ASN1-test.cpp src/ASN1-test.h \
@@ -1387,7 +1474,9 @@ build/debug/ASN1-test.o: src/ASN1-test.cpp src/ASN1-test.h \
 		../ASN1/include/berLength.h \
 		../ASN1/include/berOctetString.h \
 		../ASN1/include/berBase.h \
+		../ASN1/include/storages/berBaseType.h \
 		../ASN1/include/storages/berOctetStringStorage.h \
+		../ASN1/include/storages/decoder.h \
 		../ASN1/include/berGeneralizedTime.h \
 		../ASN1/include/berInteger.h \
 		../ASN1/include/storages/berIntegerStorage.h \
