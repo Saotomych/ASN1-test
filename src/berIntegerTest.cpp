@@ -23,7 +23,11 @@ CIntegerUnivPrim::CIntegerUnivPrim(qint64 val)
 
 quint32 CIntegerUnivPrim::encode(CBerByteArrayOutputStream& berBAOStream, bool expl)
 {
-	quint32 codeLength = m_Value.encode(berBAOStream, expl);
+	quint32 codeLength = 0;
+	if (expl)
+		codeLength = m_Value.startEncode(berBAOStream);
+	else
+		codeLength = m_Value.nextEncode(berBAOStream);
 
 	return codeLength;
 }
@@ -32,14 +36,18 @@ void CIntegerUnivPrim::testEncodeOK(char* expecteddata, int expectedlen, bool ex
 {
 	CBerByteArrayOutputStream berStream(50);
 
-	int length = m_Value.encode(berStream, expl);
+	int length = 0;
+	quint32 codeLength = 0;
+	if (expl)
+		length = m_Value.startEncode(berStream);
+	else
+		length = m_Value.nextEncode(berStream);
 
 	QString testStr1( QString("berInteger Test encode: length error (val = %1)").arg(length) );
 
 	CPPUNIT_ASSERT_EQUAL_MESSAGE(testStr1.toStdString(), expectedlen, length);
 
 	QByteArray resByteArray = berStream.getByteArray();
-
 	QByteArray expectedByteArray( expecteddata, expectedlen );
 
 	qint64 val = 0;
@@ -60,7 +68,10 @@ void CIntegerUnivPrim::testDecode(char* setData, int setLen, qint64 expectedVal,
 	QByteArray setByteArray( setData, setLen );
 	CBerByteArrayInputStream berInputStream(setByteArray);
 
-	m_Value.decode(berInputStream, expl);
+	if (expl)
+		m_Value.startDecode(berInputStream);
+	else
+		m_Value.nextDecode(berInputStream);
 
 	qint64 resVal = *(m_Value.getValue());
 	CPPUNIT_ASSERT_EQUAL_MESSAGE("berInteger Test decode: data error", expectedVal, resVal);

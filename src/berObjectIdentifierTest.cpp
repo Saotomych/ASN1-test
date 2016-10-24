@@ -9,17 +9,16 @@
 
 using namespace std;
 
-TestBerObjectIdentifier::TestBerObjectIdentifier(QVector<qint32>& testOID)
+TestBerObjectIdentifier::TestBerObjectIdentifier(QVector<qint32>& testOID):
+		m_Value( CBerObjectIdentifier(testOID) )
 {
-	CBerObjectIdentifier obj(testOID);
-	m_Value = obj;
 }
 
 void TestBerObjectIdentifier::encodeTest(QByteArray& testData)
 {
 	CBerByteArrayOutputStream berOStream(50);
 
-	qint32 len = m_Value.encode(berOStream, true);
+	qint32 len = m_Value.startEncode(berOStream);
 
 	CPPUNIT_ASSERT_EQUAL_MESSAGE("ASN1berObjectIdentifier encodeTest: length wrong", 7, len);
 
@@ -33,7 +32,7 @@ void TestBerObjectIdentifier::decodeTest(QVector<qint32>& testOID, QByteArray& t
 {
 	CBerByteArrayInputStream berInputStream(testData);
 
-	m_Value.decode(berInputStream, true);
+	m_Value.startDecode(berInputStream);
 
 	QVector<qint32> ObjectIdentifierComponents = *(m_Value.getValue());
 

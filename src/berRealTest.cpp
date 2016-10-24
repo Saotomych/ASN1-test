@@ -25,11 +25,17 @@ TestBerReal::TestBerReal(QByteArray& code): m_Value(code)
 void TestBerReal::testEncodeDecodeOK(double expecteddata, bool expl)
 {
 	CBerByteArrayOutputStream berOStream(50);
-	m_Value.encode(berOStream, expl);
+	if (expl)
+		m_Value.startEncode(berOStream);
+	else
+		m_Value.nextEncode(berOStream);
 
 	QByteArray encodeResult(berOStream.getByteArray());
 	CBerByteArrayInputStream berIStream(encodeResult);
-	m_Value.decode(berIStream, expl);
+	if (expl)
+		m_Value.startDecode(berIStream);
+	else
+		m_Value.nextDecode(berIStream);
 
 	double Real = *m_Value.getValue();
 
@@ -45,8 +51,18 @@ void ASN1berRealTest::runTest()
 	}
 
 	{
-		TestBerReal berReal(1.5);
-		berReal.testEncodeDecodeOK(1.5, true);
+		TestBerReal berReal(0.15625);
+		berReal.testEncodeDecodeOK(0.15625, true);
+	}
+
+	{
+		TestBerReal berReal(8.726);
+		berReal.testEncodeDecodeOK(8.726, true);
+	}
+
+	{
+		TestBerReal berReal(-2350.14);
+		berReal.testEncodeDecodeOK(-2350.14, true);
 	}
 
 	{

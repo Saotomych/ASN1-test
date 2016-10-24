@@ -30,7 +30,6 @@ SOURCES += src/berGeneralizedTimeTest.cpp \
 	src/berOctetStringTest.cpp \
 	src/berOutputStreamAutoResizeTest.cpp \
 	src/berRealTest.cpp \
-	src/berCompositeTest.cpp \
 	src/ASN1-test.cpp
 
 HEADERS += src/berGeneralizedTimeTest.h \
@@ -41,7 +40,6 @@ HEADERS += src/berGeneralizedTimeTest.h \
 	src/berOctetStringTest.h \
 	src/berOutputStreamAutoResizeTest.h \
 	src/berRealTest.h \
-	src/berCompositeTest.h \
 	src/ASN1-test.h
 
 unix {

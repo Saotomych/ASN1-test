@@ -52,7 +52,6 @@ SOURCES       = src/berGeneralizedTimeTest.cpp \
 		src/berOctetStringTest.cpp \
 		src/berOutputStreamAutoResizeTest.cpp \
 		src/berRealTest.cpp \
-		src/berCompositeTest.cpp \
 		src/ASN1-test.cpp 
 OBJECTS       = build/release/berGeneralizedTimeTest.o \
 		build/release/berIdentifierTest.o \
@@ -62,7 +61,6 @@ OBJECTS       = build/release/berGeneralizedTimeTest.o \
 		build/release/berOctetStringTest.o \
 		build/release/berOutputStreamAutoResizeTest.o \
 		build/release/berRealTest.o \
-		build/release/berCompositeTest.o \
 		build/release/ASN1-test.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/shell-unix.conf \
@@ -91,6 +89,9 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_platformsupport_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_printsupport_private.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qml.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_qmltest.pri \
+		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_quick.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_sql_private.pri \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/modules/qt_lib_testlib.pri \
@@ -162,7 +163,7 @@ qmake_all: FORCE
 
 dist: 
 	@test -d build/release/asn1-test0.0.0.0 || mkdir -p build/release/asn1-test0.0.0.0
-	$(COPY_FILE) --parents $(SOURCES) $(DIST) build/release/asn1-test0.0.0.0/ && $(COPY_FILE) --parents src/berGeneralizedTimeTest.h src/berIdentifierTest.h src/berIntegerTest.h src/berLengthTest.h src/berObjectIdentifierTest.h src/berOctetStringTest.h src/berOutputStreamAutoResizeTest.h src/berRealTest.h src/berCompositeTest.h src/ASN1-test.h build/release/asn1-test0.0.0.0/ && $(COPY_FILE) --parents src/berGeneralizedTimeTest.cpp src/berIdentifierTest.cpp src/berIntegerTest.cpp src/berLengthTest.cpp src/berObjectIdentifierTest.cpp src/berOctetStringTest.cpp src/berOutputStreamAutoResizeTest.cpp src/berRealTest.cpp src/berCompositeTest.cpp src/ASN1-test.cpp build/release/asn1-test0.0.0.0/ && (cd `dirname build/release/asn1-test0.0.0.0` && $(TAR) asn1-test0.0.0.0.tar asn1-test0.0.0.0 && $(COMPRESS) asn1-test0.0.0.0.tar) && $(MOVE) `dirname build/release/asn1-test0.0.0.0`/asn1-test0.0.0.0.tar.gz . && $(DEL_FILE) -r build/release/asn1-test0.0.0.0
+	$(COPY_FILE) --parents $(SOURCES) $(DIST) build/release/asn1-test0.0.0.0/ && $(COPY_FILE) --parents src/berGeneralizedTimeTest.h src/berIdentifierTest.h src/berIntegerTest.h src/berLengthTest.h src/berObjectIdentifierTest.h src/berOctetStringTest.h src/berOutputStreamAutoResizeTest.h src/berRealTest.h src/ASN1-test.h build/release/asn1-test0.0.0.0/ && $(COPY_FILE) --parents src/berGeneralizedTimeTest.cpp src/berIdentifierTest.cpp src/berIntegerTest.cpp src/berLengthTest.cpp src/berObjectIdentifierTest.cpp src/berOctetStringTest.cpp src/berOutputStreamAutoResizeTest.cpp src/berRealTest.cpp src/ASN1-test.cpp build/release/asn1-test0.0.0.0/ && (cd `dirname build/release/asn1-test0.0.0.0` && $(TAR) asn1-test0.0.0.0.tar asn1-test0.0.0.0 && $(COMPRESS) asn1-test0.0.0.0.tar) && $(MOVE) `dirname build/release/asn1-test0.0.0.0`/asn1-test0.0.0.0.tar.gz . && $(DEL_FILE) -r build/release/asn1-test0.0.0.0
 
 
 clean:compiler_clean 
@@ -300,6 +301,7 @@ build/release/berGeneralizedTimeTest.o: src/berGeneralizedTimeTest.cpp src/berGe
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -315,18 +317,13 @@ build/release/berGeneralizedTimeTest.o: src/berGeneralizedTimeTest.cpp src/berGe
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berIdentifierTest.h \
 		src/berIntegerTest.h \
 		src/berLengthTest.h \
 		src/berObjectIdentifierTest.h \
 		src/berOctetStringTest.h \
 		src/berOutputStreamAutoResizeTest.h \
-		src/berRealTest.h \
-		src/berCompositeTest.h
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berGeneralizedTimeTest.o src/berGeneralizedTimeTest.cpp
 
 build/release/berIdentifierTest.o: src/berIdentifierTest.cpp src/berIdentifierTest.h \
@@ -430,6 +427,7 @@ build/release/berIdentifierTest.o: src/berIdentifierTest.cpp src/berIdentifierTe
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -445,18 +443,13 @@ build/release/berIdentifierTest.o: src/berIdentifierTest.cpp src/berIdentifierTe
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berGeneralizedTimeTest.h \
 		src/berIntegerTest.h \
 		src/berLengthTest.h \
 		src/berObjectIdentifierTest.h \
 		src/berOctetStringTest.h \
 		src/berOutputStreamAutoResizeTest.h \
-		src/berRealTest.h \
-		src/berCompositeTest.h
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berIdentifierTest.o src/berIdentifierTest.cpp
 
 build/release/berIntegerTest.o: src/berIntegerTest.cpp src/berIntegerTest.h \
@@ -560,6 +553,7 @@ build/release/berIntegerTest.o: src/berIntegerTest.cpp src/berIntegerTest.h \
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -575,18 +569,13 @@ build/release/berIntegerTest.o: src/berIntegerTest.cpp src/berIntegerTest.h \
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berGeneralizedTimeTest.h \
 		src/berIdentifierTest.h \
 		src/berLengthTest.h \
 		src/berObjectIdentifierTest.h \
 		src/berOctetStringTest.h \
 		src/berOutputStreamAutoResizeTest.h \
-		src/berRealTest.h \
-		src/berCompositeTest.h
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berIntegerTest.o src/berIntegerTest.cpp
 
 build/release/berLengthTest.o: src/berLengthTest.cpp src/berLengthTest.h \
@@ -690,6 +679,7 @@ build/release/berLengthTest.o: src/berLengthTest.cpp src/berLengthTest.h \
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -705,18 +695,13 @@ build/release/berLengthTest.o: src/berLengthTest.cpp src/berLengthTest.h \
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berGeneralizedTimeTest.h \
 		src/berIdentifierTest.h \
 		src/berIntegerTest.h \
 		src/berObjectIdentifierTest.h \
 		src/berOctetStringTest.h \
 		src/berOutputStreamAutoResizeTest.h \
-		src/berRealTest.h \
-		src/berCompositeTest.h
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berLengthTest.o src/berLengthTest.cpp
 
 build/release/berObjectIdentifierTest.o: src/berObjectIdentifierTest.cpp src/berObjectIdentifierTest.h \
@@ -820,6 +805,7 @@ build/release/berObjectIdentifierTest.o: src/berObjectIdentifierTest.cpp src/ber
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -835,18 +821,13 @@ build/release/berObjectIdentifierTest.o: src/berObjectIdentifierTest.cpp src/ber
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berGeneralizedTimeTest.h \
 		src/berIdentifierTest.h \
 		src/berIntegerTest.h \
 		src/berLengthTest.h \
 		src/berOctetStringTest.h \
 		src/berOutputStreamAutoResizeTest.h \
-		src/berRealTest.h \
-		src/berCompositeTest.h
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berObjectIdentifierTest.o src/berObjectIdentifierTest.cpp
 
 build/release/berOctetStringTest.o: src/berOctetStringTest.cpp src/berOctetStringTest.h \
@@ -950,6 +931,7 @@ build/release/berOctetStringTest.o: src/berOctetStringTest.cpp src/berOctetStrin
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -965,18 +947,13 @@ build/release/berOctetStringTest.o: src/berOctetStringTest.cpp src/berOctetStrin
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berGeneralizedTimeTest.h \
 		src/berIdentifierTest.h \
 		src/berIntegerTest.h \
 		src/berLengthTest.h \
 		src/berObjectIdentifierTest.h \
 		src/berOutputStreamAutoResizeTest.h \
-		src/berRealTest.h \
-		src/berCompositeTest.h
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berOctetStringTest.o src/berOctetStringTest.cpp
 
 build/release/berOutputStreamAutoResizeTest.o: src/berOutputStreamAutoResizeTest.cpp src/berOutputStreamAutoResizeTest.h \
@@ -1080,6 +1057,7 @@ build/release/berOutputStreamAutoResizeTest.o: src/berOutputStreamAutoResizeTest
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -1095,18 +1073,13 @@ build/release/berOutputStreamAutoResizeTest.o: src/berOutputStreamAutoResizeTest
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berGeneralizedTimeTest.h \
 		src/berIdentifierTest.h \
 		src/berIntegerTest.h \
 		src/berLengthTest.h \
 		src/berObjectIdentifierTest.h \
 		src/berOctetStringTest.h \
-		src/berRealTest.h \
-		src/berCompositeTest.h
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berOutputStreamAutoResizeTest.o src/berOutputStreamAutoResizeTest.cpp
 
 build/release/berRealTest.o: src/berRealTest.cpp src/berRealTest.h \
@@ -1210,6 +1183,7 @@ build/release/berRealTest.o: src/berRealTest.cpp src/berRealTest.h \
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -1225,149 +1199,14 @@ build/release/berRealTest.o: src/berRealTest.cpp src/berRealTest.h \
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berGeneralizedTimeTest.h \
 		src/berIdentifierTest.h \
 		src/berIntegerTest.h \
 		src/berLengthTest.h \
 		src/berObjectIdentifierTest.h \
 		src/berOctetStringTest.h \
-		src/berOutputStreamAutoResizeTest.h \
-		src/berCompositeTest.h
+		src/berOutputStreamAutoResizeTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berRealTest.o src/berRealTest.cpp
-
-build/release/berCompositeTest.o: src/berCompositeTest.cpp src/berCompositeTest.h \
-		src/ASN1-test.h \
-		/usr/include/qt5/QtCore/QCoreApplication \
-		/usr/include/qt5/QtCore/qcoreapplication.h \
-		/usr/include/qt5/QtCore/qglobal.h \
-		/usr/include/qt5/QtCore/qconfig.h \
-		/usr/include/qt5/QtCore/qfeatures.h \
-		/usr/include/qt5/QtCore/qsystemdetection.h \
-		/usr/include/qt5/QtCore/qprocessordetection.h \
-		/usr/include/qt5/QtCore/qcompilerdetection.h \
-		/usr/include/qt5/QtCore/qglobalstatic.h \
-		/usr/include/qt5/QtCore/qatomic.h \
-		/usr/include/qt5/QtCore/qbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_bootstrap.h \
-		/usr/include/qt5/QtCore/qgenericatomic.h \
-		/usr/include/qt5/QtCore/qatomic_msvc.h \
-		/usr/include/qt5/QtCore/qatomic_integrity.h \
-		/usr/include/qt5/QtCore/qoldbasicatomic.h \
-		/usr/include/qt5/QtCore/qatomic_vxworks.h \
-		/usr/include/qt5/QtCore/qatomic_power.h \
-		/usr/include/qt5/QtCore/qatomic_alpha.h \
-		/usr/include/qt5/QtCore/qatomic_armv7.h \
-		/usr/include/qt5/QtCore/qatomic_armv6.h \
-		/usr/include/qt5/QtCore/qatomic_armv5.h \
-		/usr/include/qt5/QtCore/qatomic_bfin.h \
-		/usr/include/qt5/QtCore/qatomic_ia64.h \
-		/usr/include/qt5/QtCore/qatomic_mips.h \
-		/usr/include/qt5/QtCore/qatomic_s390.h \
-		/usr/include/qt5/QtCore/qatomic_sh4a.h \
-		/usr/include/qt5/QtCore/qatomic_sparc.h \
-		/usr/include/qt5/QtCore/qatomic_gcc.h \
-		/usr/include/qt5/QtCore/qatomic_x86.h \
-		/usr/include/qt5/QtCore/qatomic_cxx11.h \
-		/usr/include/qt5/QtCore/qatomic_unix.h \
-		/usr/include/qt5/QtCore/qmutex.h \
-		/usr/include/qt5/QtCore/qlogging.h \
-		/usr/include/qt5/QtCore/qflags.h \
-		/usr/include/qt5/QtCore/qtypeinfo.h \
-		/usr/include/qt5/QtCore/qtypetraits.h \
-		/usr/include/qt5/QtCore/qsysinfo.h \
-		/usr/include/qt5/QtCore/qstring.h \
-		/usr/include/qt5/QtCore/qchar.h \
-		/usr/include/qt5/QtCore/qbytearray.h \
-		/usr/include/qt5/QtCore/qrefcount.h \
-		/usr/include/qt5/QtCore/qnamespace.h \
-		/usr/include/qt5/QtCore/qarraydata.h \
-		/usr/include/qt5/QtCore/qstringbuilder.h \
-		/usr/include/qt5/QtCore/qobject.h \
-		/usr/include/qt5/QtCore/qobjectdefs.h \
-		/usr/include/qt5/QtCore/qobjectdefs_impl.h \
-		/usr/include/qt5/QtCore/qlist.h \
-		/usr/include/qt5/QtCore/qalgorithms.h \
-		/usr/include/qt5/QtCore/qiterator.h \
-		/usr/include/qt5/QtCore/qcoreevent.h \
-		/usr/include/qt5/QtCore/qscopedpointer.h \
-		/usr/include/qt5/QtCore/qmetatype.h \
-		/usr/include/qt5/QtCore/qvarlengtharray.h \
-		/usr/include/qt5/QtCore/qcontainerfwd.h \
-		/usr/include/qt5/QtCore/qisenum.h \
-		/usr/include/qt5/QtCore/qobject_impl.h \
-		/usr/include/qt5/QtCore/qeventloop.h \
-		../ASN1/include/berByteArrayOutputStream.h \
-		../ASN1/include/asn1_global.h \
-		/usr/include/qt5/QtCore/QObject \
-		/usr/include/qt5/QtNetwork/QHostAddress \
-		/usr/include/qt5/QtNetwork/qhostaddress.h \
-		/usr/include/qt5/QtCore/qpair.h \
-		/usr/include/qt5/QtNetwork/qabstractsocket.h \
-		/usr/include/qt5/QtCore/qiodevice.h \
-		/usr/include/qt5/QtCore/qdebug.h \
-		/usr/include/qt5/QtCore/qhash.h \
-		/usr/include/qt5/QtCore/qmap.h \
-		/usr/include/qt5/QtCore/qtextstream.h \
-		/usr/include/qt5/QtCore/qlocale.h \
-		/usr/include/qt5/QtCore/qvariant.h \
-		/usr/include/qt5/QtCore/qstringlist.h \
-		/usr/include/qt5/QtCore/qdatastream.h \
-		/usr/include/qt5/QtCore/qregexp.h \
-		/usr/include/qt5/QtCore/qstringmatcher.h \
-		/usr/include/qt5/QtCore/qshareddata.h \
-		/usr/include/qt5/QtCore/qvector.h \
-		/usr/include/qt5/QtCore/qpoint.h \
-		/usr/include/qt5/QtCore/qset.h \
-		/usr/include/qt5/QtCore/qcontiguouscache.h \
-		/usr/include/qt5/QtCore/QMutex \
-		/usr/include/qt5/QtCore/QDebug \
-		/usr/include/qt5/QtCore/QLinkedList \
-		/usr/include/qt5/QtCore/qlinkedlist.h \
-		/usr/include/qt5/QtCore/QVector \
-		/usr/include/qt5/QtCore/QScopedPointer \
-		/usr/include/qt5/QtCore/QSharedPointer \
-		/usr/include/qt5/QtCore/qsharedpointer.h \
-		/usr/include/qt5/QtCore/qsharedpointer_impl.h \
-		/usr/include/qt5/QtCore/QByteArray \
-		/usr/include/qt5/QtCore/QBitArray \
-		/usr/include/qt5/QtCore/qbitarray.h \
-		/usr/include/qt5/QtCore/qmath.h \
-		/usr/include/qt5/QtCore/QMetaObject \
-		/usr/include/qt5/QtCore/QMetaProperty \
-		/usr/include/qt5/QtCore/qmetaobject.h \
-		/usr/include/qt5/QtCore/QVariant \
-		../ASN1/include/berByteArrayInputStream.h \
-		../ASN1/include/berIdentifier.h \
-		../ASN1/include/berLength.h \
-		../ASN1/include/berOctetString.h \
-		../ASN1/include/berBase.h \
-		../ASN1/include/storages/berBaseType.h \
-		../ASN1/include/storages/berOctetStringStorage.h \
-		../ASN1/include/storages/decoder.h \
-		../ASN1/include/berGeneralizedTime.h \
-		../ASN1/include/berInteger.h \
-		../ASN1/include/storages/berIntegerStorage.h \
-		../ASN1/include/berObjectIdentifier.h \
-		../ASN1/include/storages/berObjectIdentifierStorage.h \
-		../ASN1/include/berReal.h \
-		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
-		src/berGeneralizedTimeTest.h \
-		src/berIdentifierTest.h \
-		src/berIntegerTest.h \
-		src/berLengthTest.h \
-		src/berObjectIdentifierTest.h \
-		src/berOctetStringTest.h \
-		src/berOutputStreamAutoResizeTest.h \
-		src/berRealTest.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/berCompositeTest.o src/berCompositeTest.cpp
 
 build/release/ASN1-test.o: src/ASN1-test.cpp src/ASN1-test.h \
 		/usr/include/qt5/QtCore/QCoreApplication \
@@ -1469,6 +1308,7 @@ build/release/ASN1-test.o: src/ASN1-test.cpp src/ASN1-test.h \
 		/usr/include/qt5/QtCore/QMetaProperty \
 		/usr/include/qt5/QtCore/qmetaobject.h \
 		/usr/include/qt5/QtCore/QVariant \
+		../ASN1/include/DeclareCommonTypes.h \
 		../ASN1/include/berByteArrayInputStream.h \
 		../ASN1/include/berIdentifier.h \
 		../ASN1/include/berLength.h \
@@ -1484,10 +1324,6 @@ build/release/ASN1-test.o: src/ASN1-test.cpp src/ASN1-test.h \
 		../ASN1/include/storages/berObjectIdentifierStorage.h \
 		../ASN1/include/berReal.h \
 		../ASN1/include/storages/berRealStorage.h \
-		../ASN1/include/compositeValue.h \
-		../ASN1/include/berBitString.h \
-		../ASN1/include/storages/berBitStringStorage.h \
-		../ASN1/include/berVisibleString.h \
 		src/berGeneralizedTimeTest.h \
 		src/berIdentifierTest.h \
 		src/berIntegerTest.h \
@@ -1495,8 +1331,7 @@ build/release/ASN1-test.o: src/ASN1-test.cpp src/ASN1-test.h \
 		src/berObjectIdentifierTest.h \
 		src/berOctetStringTest.h \
 		src/berOutputStreamAutoResizeTest.h \
-		src/berRealTest.h \
-		src/berCompositeTest.h
+		src/berRealTest.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o build/release/ASN1-test.o src/ASN1-test.cpp
 
 ####### Install

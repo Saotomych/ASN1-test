@@ -25,9 +25,6 @@ int main()
 	ASN1berIdentifierTest* bIDtest = new ASN1berIdentifierTest("berIdentifier Test");
 	ASN1berLengthTest* bLENtest = new ASN1berLengthTest("berLength Test");
 
-	// Abstract composite type Test
-	ASN1berCompositeTest* bCompositeTest = new ASN1berCompositeTest("berComposite Test");
-
     // Do processing here
 	CppUnit::TextTestRunner runner;
 	runner.addTest(Streamtest);
@@ -38,7 +35,6 @@ int main()
 	runner.addTest(bREALtest);
 	runner.addTest(bIDtest);
 	runner.addTest(bLENtest);
-	runner.addTest(bCompositeTest);
 
 	runner.run();
 

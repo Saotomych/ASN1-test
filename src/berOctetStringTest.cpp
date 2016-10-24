@@ -25,7 +25,7 @@ void TestBerOctetString::encodeTest(char* expectedData, quint32 expectedLen)
 {
 	CBerByteArrayOutputStream berStream(50);
 
-	quint32 length = m_Value.encode(berStream, true);
+	quint32 length = m_Value.startEncode(berStream);
 
 	CPPUNIT_ASSERT_EQUAL_MESSAGE("berOctetStringTest Test: encode length error", expectedLen, length);
 
@@ -41,7 +41,7 @@ void TestBerOctetString::decodeTest(char* data, quint32 len, quint32 expectedLen
 	QByteArray byteArray(data, len);
 	CBerByteArrayInputStream berStream( byteArray );
 
-	m_Value.decode(berStream, true);
+	m_Value.startDecode(berStream);
 
 	QByteArray OctetString = *(m_Value.getValue());
 
